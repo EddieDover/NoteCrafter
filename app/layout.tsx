@@ -22,7 +22,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NoteMaker",
+  title: "NoteCrafter",
   description:
     "An app for GMs, to create simple handout notes for their players.",
 };

@@ -15,8 +15,8 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import NoteMaker from "@/components/NoteMaker";
+import NoteCrafter from "@/components/NoteCraftrer";
 
 export default function Home() {
-  return <NoteMaker />;
+  return <NoteCrafter />;
 }

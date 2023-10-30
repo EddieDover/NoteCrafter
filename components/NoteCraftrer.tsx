@@ -35,9 +35,9 @@ import { Changelog } from "./Changelog";
 import { NoteImage } from "./NoteImage";
 import { Info } from "./Info";
 
-interface NoteMakerProps {}
+interface NoteCrafterProps {}
 
-export const NoteMaker = (props: NoteMakerProps) => {
+export const NoteCrafter = (props: NoteCrafterProps) => {
   const [noteText, setNoteText] = useState("This is a note");
   const [backgroundImage, setBackgroundImage] = useState(PAPER_LIST[0].file);
   const [customBackgroundImage, setCustomBackgroundImage] = useState<File>();
@@ -613,4 +613,4 @@ export const NoteMaker = (props: NoteMakerProps) => {
   );
 };
 
-export default NoteMaker;
+export default NoteCrafter;

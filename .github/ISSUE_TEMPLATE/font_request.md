@@ -1,7 +1,7 @@
 ---
-name: Font Request FONTNAME_GOES_HERE
+name: Font Request
 about: Suggest a new font for the site
-title: ""
+title: "Font Request <FONT_NAME_GOES_HERE>"
 labels: ""
 assignees: ""
 ---
