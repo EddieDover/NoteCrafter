@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Alex Brush";
+  src: url("../public/fonts/AlexBrush-7XGA.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Salonica";
+  src: url("../public/fonts/Salonica-Wym59.ttf") format("truetype");
+}
