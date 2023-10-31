@@ -18,6 +18,11 @@
 }
 
 @font-face {
+  font-family: "Sage Sans";
+  src: url("../public/fonts/sagesans-Regular.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Amelies Zettelwirtschaft";
   src: url("../public/fonts/Amelies.ttf") format("truetype");
 }
