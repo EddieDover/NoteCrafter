@@ -16,3 +16,8 @@
   font-family: "Lemon Tuesday";
   src: url("../public/fonts/Lemon-Tuesday.otf") format("opentype");
 }
+
+@font-face {
+  font-family: "Amelies Zettelwirtschaft";
+  src: url("../public/fonts/Amelies.ttf") format("truetype");
+}
