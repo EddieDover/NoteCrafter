@@ -33,6 +33,10 @@ export const FONT_LIST = [
     source: "https://www.dafont.com/lemon-tuesday.font",
   },
   {
+    name: "Sage Sans",
+    source: "https://www.dafont.com/sage-sans.font",
+  },
+  {
     name: "Amelies Zettelwirtschaft",
     source: "https://www.dafont.com/amelies-zettelwirtschaft-ah.font",
   },
