@@ -11,3 +11,8 @@
   font-family: "Salonica";
   src: url("../public/fonts/Salonica-Wym59.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Lemon Tuesday";
+  src: url("../public/fonts/Lemon-Tuesday.otf") format("opentype");
+}

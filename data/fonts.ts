@@ -28,4 +28,8 @@ export const FONT_LIST = [
     name: "Salonica",
     source: "https://www.fontspace.com/salonica-font-f56047",
   },
+  {
+    name: "Lemon Tuesday",
+    source: "https://www.dafont.com/lemon-tuesday.font",
+  },
 ];
