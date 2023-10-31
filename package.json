@@ -1,7 +1,11 @@
 {
   "name": "notecrafter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
+  "repository": {
+    "url": "https://www.github.com/eddiedover/notecrafter",
+    "type": "git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
