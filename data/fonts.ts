@@ -32,4 +32,8 @@ export const FONT_LIST = [
     name: "Lemon Tuesday",
     source: "https://www.dafont.com/lemon-tuesday.font",
   },
+  {
+    name: "Amelies Zettelwirtschaft",
+    source: "https://www.dafont.com/amelies-zettelwirtschaft-ah.font",
+  },
 ];
