@@ -17,9 +17,23 @@
 
 const sharp = require("sharp");
 
-async function convertImageToWebp(image: Buffer) {
-  const webPData = await sharp(image).webp().toBuffer();
-  return webPData;
+async function convertImageToWebp(
+  image: Buffer,
+  transparentColor?: [number, number, number, number]
+) {
+  if (transparentColor) {
+    const webPData = await sharp(image)
+      .flatten({ background: transparentColor, alpha: 0 })
+      .removeAlpha(transparentColor)
+      .webp()
+      .toBuffer();
+    return webPData;
+  } else {
+    const webPData = await sharp(image)
+      .webp({ background: "transparent" })
+      .toBuffer();
+    return webPData;
+  }
 }
 
 export async function POST(request: Request, response: Response) {
