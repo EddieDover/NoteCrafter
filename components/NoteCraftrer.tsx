@@ -74,6 +74,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   const [overlaysLeft, setOverlaysLeft] = useState<number[]>([0]);
   const [overlaysUp, setOverlaysUp] = useState<number[]>([0]);
   const [overlaysRotation, setOverlaysRotation] = useState<number[]>([0]);
+  const [overlaysZIndex, setOverlaysZIndex] = useState<number[]>([0]);
   const [overlaysImage, setOverlaysImage] = useState<File[]>([]);
 
   const formSetNoteText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -423,6 +424,22 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
                       });
                     }}
                   />
+                  <FormElement
+                    id={`overlay_zindex_${i + 1}`}
+                    label={`Overlay ${i + 1} Z-Index:`}
+                    classNameOverride="input input-bordered w-full max-w-xs"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={overlaysZIndex[i]}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setOverlaysZIndex((prev) => {
+                        const newArr = [...prev];
+                        newArr[i] = parseInt(event.target.value);
+                        return newArr;
+                      });
+                    }}
+                  />
                   <div className="divider"></div>
                 </div>
               );
@@ -722,6 +739,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
                     left: overlaysLeft[idx],
                     top: overlaysUp[idx],
                     rotate: `${overlaysRotation[idx]}deg`,
+                    zIndex: overlaysZIndex[idx],
                   }}
                 >
                   <img src={URL.createObjectURL(overlaysImage[idx])} />

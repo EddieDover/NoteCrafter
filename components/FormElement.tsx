@@ -30,6 +30,7 @@ interface FormElementProps extends React.PropsWithChildren {
     | "textarea"
     | "select"
     | "richtextarea"
+    | "number"
     | "upload";
   [key: string]: any;
   onClear?: () => void;
@@ -58,7 +59,22 @@ export const FormElement = (props: FormElementProps) => {
       ) : null}
 
       {props.type === "text" ? (
-        <input type="text" name={id} id={id} {...otherProps} />
+        <input
+          type="text"
+          name={id}
+          id={id}
+          {...otherProps}
+          className={classNameOverride}
+        />
+      ) : null}
+      {props.type === "number" ? (
+        <input
+          type="number"
+          name={id}
+          id={id}
+          {...otherProps}
+          className={classNameOverride}
+        />
       ) : null}
       {props.type === "color" ? (
         <input
