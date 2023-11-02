@@ -66,7 +66,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   const [outputFormat, setOutputFormat] = useState<
     "webp" | "png" | "svg" | "jpeg"
   >("webp");
-  const [selfCaptureMode, setSelfCaptureMode] = useState(false);
+  const [hideMargins, setHideMargins] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
 
   const [overlayAmount, setOverlayAmount] = useState(0);
@@ -244,9 +244,9 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
     setBackgroundAttribution(PAPER_LIST[0].source);
   };
 
-  const toggleSelfCaptureMode = () => {
-    setSelfCaptureMode(!selfCaptureMode);
-    setMarginsVisible(selfCaptureMode);
+  const toggleHideMargins = () => {
+    setHideMargins(!hideMargins);
+    setMarginsVisible(hideMargins);
   };
 
   const closeWarningModal = (event: any) => {
@@ -329,7 +329,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
           </span>
         </div>
         <div className="divider my-0"></div>
-        <div className="tabs">
+        <div className="tabs tabs-boxed">
           <a
             className="tab tab-lifted tab-active"
             href="#tab1"
@@ -496,8 +496,16 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               id="font_color_picker"
               label="Font Color: "
               type="color"
+              row={true}
               classNameOverride="max-w-[100px] max-h-[100px]"
               onChange={formSetFontColor}
+            />
+            <FormElement
+              id="font_drop_shadow"
+              label="Font Drop Shadow: "
+              type="checkbox"
+              row={true}
+              classNameOverride="checkbox checkbox-primary"
             />
             <FormElement
               id="font_opacity"
@@ -629,14 +637,18 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               }}
             ></FormElement>
             <div className="divider"></div>
-            <div className="flex flex-row">
-              <p>Self Capture Mode</p>
-              <input
-                type="checkbox"
-                checked={selfCaptureMode}
-                onChange={toggleSelfCaptureMode}
-              />
-            </div>
+            <FormElement
+              id="hide_margins"
+              label="Hide Margins: "
+              type="checkbox"
+              row={true}
+              className="mx-auto"
+              classNameOverride="checkbox checkbox-primary"
+              checked={hideMargins}
+              onChange={() => {
+                toggleHideMargins();
+              }}
+            />
             <div className="flex flex-row flex-nowrap mx-auto">
               <FormElement
                 id="output_format"
@@ -697,7 +709,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               backgroundImageWidth,
               backgroundImageHeight,
               imagePadding,
-              selfCaptureMode,
+              hideMargins,
             }}
           >
             {Object.keys(imagePadding).map((key) => {
@@ -763,11 +775,11 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               <ol>
                 <li>
                   <p>
-                    <b>Take a sceenshot yourself</b> - Toggling the &quot;Self
-                    Capture Mode&quot; checkbox will remove the margins and
-                    allow you to manually screenshot the image. Then you can use
-                    an image editor of your choice to paste the sceenshot in and
-                    save it to whatever format you desire.
+                    <b>Take a sceenshot yourself</b> - Toggling &quot;Hide
+                    Margins&quot; checkbox will remove the margins and allow you
+                    to manually screenshot the image. Then you can use an image
+                    editor of your choice to paste the sceenshot in and save it
+                    to whatever format you desire.
                   </p>
                 </li>
                 <li>

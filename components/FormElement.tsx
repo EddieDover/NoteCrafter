@@ -23,6 +23,7 @@ interface FormElementProps extends React.PropsWithChildren {
   labelIcon?: ReactNode;
   className?: string;
   classNameOverride?: string;
+  row?: boolean;
   type:
     | "text"
     | "color"
@@ -31,6 +32,7 @@ interface FormElementProps extends React.PropsWithChildren {
     | "select"
     | "richtextarea"
     | "number"
+    | "checkbox"
     | "upload";
   [key: string]: any;
   onClear?: () => void;
@@ -43,15 +45,19 @@ export const FormElement = (props: FormElementProps) => {
     id,
     children,
     type,
+    className,
     classNameOverride,
+    row = false,
     onClear,
     ...otherProps
   } = props;
   return (
-    <div className="flex flex-col">
+    <div className={`flex ${row ? "flex-row" : "flex-col"} ${className}`}>
       {label ? (
         <label
-          className="whitespace-nowrap block text-sm font-medium"
+          className={`whitespace-nowrap block text-sm font-medium ${
+            row ? "mr-2" : null
+          }`}
           htmlFor={id}
         >
           {label} {labelIcon}
@@ -74,6 +80,14 @@ export const FormElement = (props: FormElementProps) => {
           id={id}
           {...otherProps}
           className={classNameOverride}
+        />
+      ) : null}
+      {props.type === "checkbox" ? (
+        <input
+          type="checkbox"
+          id={id}
+          className={classNameOverride}
+          {...otherProps}
         />
       ) : null}
       {props.type === "color" ? (

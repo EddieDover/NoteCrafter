@@ -27,7 +27,7 @@ interface NoteImageProps extends PropsWithChildren {
   backgroundImageWidth: number;
   backgroundImageHeight: number;
   imagePadding: { left: number; right: number; top: number; bottom: number };
-  selfCaptureMode: boolean;
+  hideMargins: boolean;
 }
 
 export const NoteImage = (props: NoteImageProps) => {
@@ -41,7 +41,7 @@ export const NoteImage = (props: NoteImageProps) => {
     backgroundImageWidth,
     backgroundImageHeight,
     imagePadding,
-    selfCaptureMode,
+    hideMargins,
     children,
   } = props;
 
