@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "private": true,
   "repository": {
-    "url": "https://www.github.com/eddiedover/notecrafter",
+    "url": "git+https://github.com/eddiedover/notecrafter.git",
     "type": "git"
   },
   "scripts": {
@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "changelog": "generate-changelog -u 'https://github.com/EddieDover/notecrafter'"
+    "changelog": "generate-changelog"
   },
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
