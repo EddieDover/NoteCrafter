@@ -27,6 +27,7 @@ import {
   BiBug,
   BiDownload,
   BiLogoGithub,
+  BiPlus,
   BiQuestionMark,
 } from "react-icons/bi";
 import NextImage from "next/image";
@@ -66,6 +67,15 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
     "webp" | "png" | "svg" | "jpeg"
   >("webp");
   const [selfCaptureMode, setSelfCaptureMode] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  const [overlayAmount, setOverlayAmount] = useState(0);
+
+  const [overlaysLeft, setOverlaysLeft] = useState<number[]>([0]);
+  const [overlaysUp, setOverlaysUp] = useState<number[]>([0]);
+  const [overlaysRotation, setOverlaysRotation] = useState<number[]>([0]);
+  const [overlaysZIndex, setOverlaysZIndex] = useState<number[]>([0]);
+  const [overlaysImage, setOverlaysImage] = useState<File[]>([]);
 
   const formSetNoteText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNoteText(event.target.value);
@@ -246,6 +256,48 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
     dialog?.close();
   };
 
+  const changeTab = (tab: number) => (event: any) => {
+    event.preventDefault();
+    const tabs = document.getElementsByClassName("tab");
+    for (let i = 0; i < tabs.length; i++) {
+      tabs[i].classList.remove("tab-active");
+    }
+    tabs[tab].classList.add("tab-active");
+    setSelectedTab(tab);
+  };
+
+  const addOverlay = () => {
+    setOverlayAmount(overlayAmount + 1);
+    setOverlaysLeft((prev) => [...prev, 0]);
+    setOverlaysUp((prev) => [...prev, 0]);
+    setOverlaysRotation((prev) => [...prev, 0]);
+    setOverlaysImage((prev) => [...prev, new File([], "")]);
+  };
+
+  const removeOverlay = (idx: number) => {
+    setOverlayAmount(overlayAmount - 1);
+    setOverlaysLeft((prev) => {
+      const newArr = [...prev];
+      newArr.splice(idx, 1);
+      return newArr;
+    });
+    setOverlaysUp((prev) => {
+      const newArr = [...prev];
+      newArr.splice(idx, 1);
+      return newArr;
+    });
+    setOverlaysRotation((prev) => {
+      const newArr = [...prev];
+      newArr.splice(idx, 1);
+      return newArr;
+    });
+    setOverlaysImage((prev) => {
+      const newArr = [...prev];
+      newArr.splice(idx, 1);
+      return newArr;
+    });
+  };
+
   return (
     <div className="h-full flex flex-row flex-nowrap items-center">
       <div className="flex flex-col border h-full">
@@ -277,226 +329,345 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
           </span>
         </div>
         <div className="divider my-0"></div>
-        <form className="my-auto flex flex-col px-2 gap-2">
-          <FormElement
-            id="font_select"
-            label="Font: "
-            onChange={formSetFont}
-            style={{ fontFamily: fontFamily }}
-            type="select"
-            classNameOverride="select select-primary w-full max-w-xs"
+        <div className="tabs">
+          <a
+            className="tab tab-lifted tab-active"
+            href="#tab1"
+            onClick={changeTab(0)}
           >
-            {FONT_LIST.map((font) => {
+            Layout
+          </a>
+          <a className="tab tab-lifted" href="#tab2" onClick={changeTab(1)}>
+            Overlays
+          </a>
+        </div>
+        {selectedTab === 1 ? (
+          <div className="flex flex-col flex-nowrap">
+            <button className="btn btn-primary" onClick={() => addOverlay()}>
+              <span className="text-2xl">
+                <BiPlus />
+              </span>
+              Add Overlay
+            </button>
+
+            {Array.from({ length: overlayAmount }, (_, i) => {
               return (
-                <option
-                  key={font.name}
-                  style={{ fontFamily: font.name }}
-                  value={font.name}
+                <div
+                  className="flex flex-col flex-nowrap"
+                  key={`overlay_block_${i}`}
                 >
-                  {font.name}
-                </option>
+                  <FormElement
+                    id={`overlay_img_${i + 1}`}
+                    type="upload"
+                    classNameOverride="max-h-[30px] file-input file-input-bordered file-input-primary w-full max-w-xs"
+                    label={`Overlay ${i + 1} Image: `}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setOverlaysImage((prev) => {
+                        const newArr = [...prev];
+                        newArr[i] = event.target.files?.[0] ?? new File([], "");
+                        return newArr;
+                      });
+                    }}
+                    onClear={() => removeOverlay(i)}
+                  />
+                  <FormElement
+                    id={`overlay_left_${i + 1}`}
+                    label={`Overlay ${i + 1} Left:`}
+                    classNameOverride="range range-primary"
+                    type="range"
+                    min="0"
+                    max={
+                      backgroundImageWidth -
+                      (document.getElementById("overlay_" + i)?.clientWidth ??
+                        0)
+                    }
+                    step="1"
+                    value={overlaysLeft[i]}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setOverlaysLeft((prev) => {
+                        const newArr = [...prev];
+                        newArr[i] = parseInt(event.target.value);
+                        return newArr;
+                      });
+                    }}
+                  />
+                  <FormElement
+                    id={`overlay_up_${i + 1}`}
+                    label={`Overlay ${i + 1} Top:`}
+                    classNameOverride="range range-primary"
+                    type="range"
+                    min="0"
+                    max={backgroundImageHeight}
+                    step="1"
+                    value={overlaysUp[i]}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setOverlaysUp((prev) => {
+                        const newArr = [...prev];
+                        newArr[i] = parseInt(event.target.value);
+                        return newArr;
+                      });
+                    }}
+                  />
+                  <FormElement
+                    id={`overlay_rotation_${i + 1}`}
+                    label={`Overlay ${i + 1} Rotation:`}
+                    classNameOverride="range range-primary"
+                    type="range"
+                    min="0"
+                    max="360"
+                    value={overlaysRotation[i]}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setOverlaysRotation((prev) => {
+                        const newArr = [...prev];
+                        newArr[i] = parseInt(event.target.value);
+                        return newArr;
+                      });
+                    }}
+                  />
+                  <FormElement
+                    id={`overlay_zindex_${i + 1}`}
+                    label={`Overlay ${i + 1} Z-Index:`}
+                    classNameOverride="input input-bordered w-full max-w-xs"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={overlaysZIndex[i]}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setOverlaysZIndex((prev) => {
+                        const newArr = [...prev];
+                        newArr[i] = parseInt(event.target.value);
+                        return newArr;
+                      });
+                    }}
+                  />
+                  <div className="divider"></div>
+                </div>
               );
             })}
-          </FormElement>
-          <FormElement
-            id="custom_font_select"
-            label={`Custom Font:`}
-            labelIcon={
-              <button
-                onClick={(event) => {
-                  event.preventDefault();
-                  const dialog: HTMLDialogElement | null =
-                    document?.getElementById(
-                      "cfw_modal"
-                    ) as HTMLDialogElement | null;
-                  dialog?.showModal();
-                }}
-              >
-                <BiQuestionMark />
-              </button>
-            }
-            type="upload"
-            onChange={setCustomFont}
-            classNameOverride="file-input file-input-bordered file-input-primary w-full max-w-xs"
-            onClear={() => {
-              clearCustomFont();
-            }}
-          />
-          <FormElement
-            id="font_color_picker"
-            label="Font Color: "
-            type="color"
-            classNameOverride="max-w-[100px] max-h-[100px]"
-            onChange={formSetFontColor}
-          />
-          <FormElement
-            id="font_opacity"
-            label="Font Opacity: "
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            classNameOverride="range range-primary"
-            value={fontOpacity}
-            onChange={formSetFontOpacity}
-          />
-          <FormElement
-            id="font_size"
-            label="Font Size: "
-            type="select"
-            classNameOverride="select select-primary w-full max-w-xs"
-            onChange={formSetFontSize}
-          >
-            {Array.from({ length: MAX_FONT_SIZE - 16 + 1 }, (_, i) => {
-              if ((16 + i) % 2 === 0)
-                return (
-                  <option key={i} value={`${16 + i}px`}>
-                    {16 + i}px
-                  </option>
-                );
-            })}
-          </FormElement>
-          <div className="divider"></div>
-          <FormElement
-            id="background_image"
-            label="Background Texture: "
-            type="select"
-            classNameOverride="select select-primary w-full max-w-xs"
-            value={backgroundImage}
-            onChange={formSetBackgroundImage}
-          >
-            {PAPER_LIST.map((paper, idx) => {
-              return (
-                <option key={paper.name} value={paper.file}>
-                  {paper.name}
-                </option>
-              );
-            })}
-          </FormElement>
-          <FormElement
-            id="custom_background_image"
-            label="Custom Background Texture: "
-            type="upload"
-            classNameOverride="file-input file-input-bordered file-input-primary w-full max-w-xs"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setCustomImage(event.target.files?.[0]);
-            }}
-            onClear={() => {
-              clearCustomImage();
-            }}
-          />
-          <div className="divider"></div>
-          <FormElement
-            id="text_area"
-            label="Text: "
-            classNameOverride="input input-bordered input-primary w-full max-w-xs"
-            onChange={formSetNoteText}
-            type="textarea"
-          ></FormElement>
-          <div className="divider"></div>
-          <FormElement
-            id="image_padding_left"
-            label="Margin Left: "
-            type="range"
-            min="0"
-            max="200"
-            step="5"
-            classNameOverride="range range-primary"
-            value={imagePadding.left}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setImagePadding({
-                ...imagePadding,
-                left: parseInt(event.target.value),
-              });
-            }}
-          ></FormElement>
-          <FormElement
-            id="image_padding_right"
-            label="Margin Right: "
-            type="range"
-            min="0"
-            max="200"
-            step="5"
-            classNameOverride="range range-primary"
-            value={imagePadding.right}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setImagePadding({
-                ...imagePadding,
-                right: parseInt(event.target.value),
-              });
-            }}
-          ></FormElement>
-          <FormElement
-            id="image_padding_top"
-            label="Margin Top: "
-            type="range"
-            min="0"
-            max="200"
-            step="5"
-            classNameOverride="range range-primary"
-            value={imagePadding.top}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setImagePadding({
-                ...imagePadding,
-                top: parseInt(event.target.value),
-              });
-            }}
-          ></FormElement>
-          <FormElement
-            id="image_padding_bottom"
-            label="Margin Bottom: "
-            type="range"
-            min="0"
-            max="200"
-            step="5"
-            classNameOverride="range range-primary"
-            value={imagePadding.bottom}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setImagePadding({
-                ...imagePadding,
-                bottom: parseInt(event.target.value),
-              });
-            }}
-          ></FormElement>
-          <div className="divider"></div>
-          <div className="flex flex-row">
-            <p>Self Capture Mode</p>
-            <input
-              type="checkbox"
-              checked={selfCaptureMode}
-              onChange={toggleSelfCaptureMode}
-            />
           </div>
-          <div className="flex flex-row flex-nowrap mx-auto">
+        ) : null}
+        {selectedTab === 0 ? (
+          <form className="my-auto flex flex-col px-2 gap-2">
             <FormElement
-              id="output_format"
-              label=""
+              id="font_select"
+              label="Font: "
+              onChange={formSetFont}
+              style={{ fontFamily: fontFamily }}
               type="select"
               classNameOverride="select select-primary w-full max-w-xs"
-              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                setOutputFormat(
-                  event.target.value as "webp" | "png" | "svg" | "jpeg"
+            >
+              {FONT_LIST.map((font) => {
+                return (
+                  <option
+                    key={font.name}
+                    style={{ fontFamily: font.name }}
+                    value={font.name}
+                  >
+                    {font.name}
+                  </option>
                 );
-              }}
-            >
-              <option value="webp">WEBP</option>
-              <option value="png">PNG</option>
-              <option value="jpeg">JPEG</option>
-              <option value="svg">SVG</option>
+              })}
             </FormElement>
-            <button
-              id="make_image"
-              type="button"
-              className="btn btn-primary"
-              onClick={() => makeImage()}
+            <FormElement
+              id="custom_font_select"
+              label={`Custom Font:`}
+              labelIcon={
+                <button
+                  onClick={(event) => {
+                    event.preventDefault();
+                    const dialog: HTMLDialogElement | null =
+                      document?.getElementById(
+                        "cfw_modal"
+                      ) as HTMLDialogElement | null;
+                    dialog?.showModal();
+                  }}
+                >
+                  <BiQuestionMark />
+                </button>
+              }
+              type="upload"
+              onChange={setCustomFont}
+              classNameOverride="file-input file-input-bordered file-input-primary w-full max-w-xs"
+              onClear={() => {
+                clearCustomFont();
+              }}
+            />
+            <FormElement
+              id="font_color_picker"
+              label="Font Color: "
+              type="color"
+              classNameOverride="max-w-[100px] max-h-[100px]"
+              onChange={formSetFontColor}
+            />
+            <FormElement
+              id="font_opacity"
+              label="Font Opacity: "
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              classNameOverride="range range-primary"
+              value={fontOpacity}
+              onChange={formSetFontOpacity}
+            />
+            <FormElement
+              id="font_size"
+              label="Font Size: "
+              type="select"
+              classNameOverride="select select-primary w-full max-w-xs"
+              onChange={formSetFontSize}
             >
-              <span className="pr-1 text-2xl">
-                <BiDownload />
-              </span>
-              Download
-            </button>
-          </div>
-        </form>
+              {Array.from({ length: MAX_FONT_SIZE - 16 + 1 }, (_, i) => {
+                if ((16 + i) % 2 === 0)
+                  return (
+                    <option key={i} value={`${16 + i}px`}>
+                      {16 + i}px
+                    </option>
+                  );
+              })}
+            </FormElement>
+            <div className="divider"></div>
+            <FormElement
+              id="background_image"
+              label="Background Texture: "
+              type="select"
+              classNameOverride="select select-primary w-full max-w-xs"
+              value={backgroundImage}
+              onChange={formSetBackgroundImage}
+            >
+              {PAPER_LIST.map((paper, idx) => {
+                return (
+                  <option key={paper.name} value={paper.file}>
+                    {paper.name}
+                  </option>
+                );
+              })}
+            </FormElement>
+            <FormElement
+              id="custom_background_image"
+              label="Custom Background Texture: "
+              type="upload"
+              classNameOverride="file-input file-input-bordered file-input-primary w-full max-w-xs"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setCustomImage(event.target.files?.[0]);
+              }}
+              onClear={() => {
+                clearCustomImage();
+              }}
+            />
+            <div className="divider"></div>
+            <FormElement
+              id="text_area"
+              label="Text: "
+              classNameOverride="input input-bordered input-primary w-full max-w-xs"
+              onChange={formSetNoteText}
+              type="textarea"
+            ></FormElement>
+            <div className="divider"></div>
+            <FormElement
+              id="image_padding_left"
+              label="Margin Left: "
+              type="range"
+              min="0"
+              max="200"
+              step="5"
+              classNameOverride="range range-primary"
+              value={imagePadding.left}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setImagePadding({
+                  ...imagePadding,
+                  left: parseInt(event.target.value),
+                });
+              }}
+            ></FormElement>
+            <FormElement
+              id="image_padding_right"
+              label="Margin Right: "
+              type="range"
+              min="0"
+              max="200"
+              step="5"
+              classNameOverride="range range-primary"
+              value={imagePadding.right}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setImagePadding({
+                  ...imagePadding,
+                  right: parseInt(event.target.value),
+                });
+              }}
+            ></FormElement>
+            <FormElement
+              id="image_padding_top"
+              label="Margin Top: "
+              type="range"
+              min="0"
+              max="200"
+              step="5"
+              classNameOverride="range range-primary"
+              value={imagePadding.top}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setImagePadding({
+                  ...imagePadding,
+                  top: parseInt(event.target.value),
+                });
+              }}
+            ></FormElement>
+            <FormElement
+              id="image_padding_bottom"
+              label="Margin Bottom: "
+              type="range"
+              min="0"
+              max="200"
+              step="5"
+              classNameOverride="range range-primary"
+              value={imagePadding.bottom}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setImagePadding({
+                  ...imagePadding,
+                  bottom: parseInt(event.target.value),
+                });
+              }}
+            ></FormElement>
+            <div className="divider"></div>
+            <div className="flex flex-row">
+              <p>Self Capture Mode</p>
+              <input
+                type="checkbox"
+                checked={selfCaptureMode}
+                onChange={toggleSelfCaptureMode}
+              />
+            </div>
+            <div className="flex flex-row flex-nowrap mx-auto">
+              <FormElement
+                id="output_format"
+                label=""
+                type="select"
+                classNameOverride="select select-primary w-full max-w-xs"
+                onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                  setOutputFormat(
+                    event.target.value as "webp" | "png" | "svg" | "jpeg"
+                  );
+                }}
+              >
+                <option value="webp">WEBP</option>
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="svg">SVG</option>
+              </FormElement>
+              <button
+                id="make_image"
+                type="button"
+                className="btn btn-primary"
+                onClick={() => makeImage()}
+              >
+                <span className="pr-1 text-2xl">
+                  <BiDownload />
+                </span>
+                Download
+              </button>
+            </div>
+          </form>
+        ) : null}
       </div>
       <div className="relative w-full h-full flex flex-col">
         <div className="w-full h-fit-content">
@@ -556,6 +727,23 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
                   }}
                   className="h-full"
                 ></div>
+              );
+            })}
+            {overlaysImage.map((image, idx) => {
+              return (
+                <div
+                  key={`overlay_${idx}`}
+                  id={`overlay_${idx}`}
+                  style={{
+                    position: "absolute",
+                    left: overlaysLeft[idx],
+                    top: overlaysUp[idx],
+                    rotate: `${overlaysRotation[idx]}deg`,
+                    zIndex: overlaysZIndex[idx],
+                  }}
+                >
+                  <img src={URL.createObjectURL(overlaysImage[idx])} />
+                </div>
               );
             })}
           </NoteImage>
