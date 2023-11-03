@@ -24,7 +24,30 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "NoteCrafter",
   description:
-    "An app for GMs, to create simple handout notes for their players.",
+    "A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else.",
+  applicationName: "NoteCrafter",
+  authors: [
+    {
+      name: "Eddie Dover",
+      url: "https://www.eddiedover.dev",
+    },
+  ],
+  keywords: ["handout", "handouts", "ttrpg", "generator", "5E", "D&D"],
+  openGraph: {
+    type: "website",
+    url: "https://www.notecrafter.app",
+    title: "NoteCrafter",
+    description:
+      "A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else.",
+    images: [
+      {
+        url: "https://notecrafter.app/images/nclogo.png",
+        width: 512,
+        height: 512,
+        alt: "NoteCrafter Logo",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -34,38 +57,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full w-full">
-      <head>
-        <title>NoteCrafter</title>
-        <meta name="title" content="NoteCrafter" />
-        <meta
-          name="description"
-          content="A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else."
-        />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.notecrafter.app/" />
-        <meta property="og:title" content="NoteCrafter" />
-        <meta
-          property="og:description"
-          content="A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else."
-        />
-        <meta
-          property="og:image"
-          content="https://notecrafter.app/images/nclogo.png"
-        />
-
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://www.notecrafter.app/" />
-        <meta property="twitter:title" content="NoteCrafter" />
-        <meta
-          property="twitter:description"
-          content="A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else."
-        />
-        <meta
-          property="twitter:image"
-          content="https://notecrafter.app/images/nclogo.png"
-        />
-      </head>
       <body className={`w-full h-full ${inter.className}`}>
         {children}
         <Analytics />
