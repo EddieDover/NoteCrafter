@@ -17,11 +17,12 @@
 
 "use client";
 
+import { MAX_FONT_SIZE } from "@/data/constants";
 import { FONT_LIST } from "@/data/fonts";
 import { PAPER_LIST } from "@/data/papers";
-import { MAX_FONT_SIZE } from "@/data/constants";
 import download from "downloadjs";
 import * as htmlToImage from "html-to-image";
+import NextImage from "next/image";
 import { useCallback, useState } from "react";
 import {
   BiBug,
@@ -30,11 +31,10 @@ import {
   BiPlus,
   BiQuestionMark,
 } from "react-icons/bi";
-import NextImage from "next/image";
-import { FormElement } from "./FormElement";
 import { Changelog } from "./Changelog";
-import { NoteImage } from "./NoteImage";
+import { FormElement } from "./FormElement";
 import { Info } from "./Info";
+import { NoteImage } from "./NoteImage";
 
 interface NoteCrafterProps {}
 
@@ -44,6 +44,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   const [customBackgroundImage, setCustomBackgroundImage] = useState<File>();
   const [fontFamily, setFontFamily] = useState("Verdana");
   const [fontColor, setFontColor] = useState("#000000");
+  const [fontDropShadow, setFontDropShadow] = useState(false);
   const [fontOpacity, setFontOpacity] = useState("1");
   const [fontSize, setFontSize] = useState("16px");
   const [backgroundImageWidth, setBackgroundImageWidth] = useState(
@@ -95,6 +96,12 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
 
   const formSetFontColor = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFontColor(event.target.value);
+  };
+
+  const formSetFontDropShadow = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFontDropShadow(event.target.checked);
   };
 
   const formSetFontOpacity = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -506,6 +513,8 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               type="checkbox"
               row={true}
               classNameOverride="checkbox checkbox-primary"
+              value={fontDropShadow}
+              onChange={formSetFontDropShadow}
             />
             <FormElement
               id="font_opacity"
@@ -703,6 +712,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               noteText,
               fontFamily,
               fontFinalColor,
+              fontDropShadow,
               fontSize,
               backgroundImage,
               customBackgroundImage,

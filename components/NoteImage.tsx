@@ -21,6 +21,7 @@ interface NoteImageProps extends PropsWithChildren {
   noteText: string;
   fontFamily: string;
   fontFinalColor: () => string;
+  fontDropShadow: boolean;
   fontSize: string;
   backgroundImage: string;
   customBackgroundImage?: File;
@@ -35,6 +36,7 @@ export const NoteImage = (props: NoteImageProps) => {
     noteText,
     fontFamily,
     fontFinalColor,
+    fontDropShadow,
     fontSize,
     backgroundImage,
     customBackgroundImage,
@@ -67,6 +69,7 @@ export const NoteImage = (props: NoteImageProps) => {
         maxWidth: "100%",
         maxHeight: "90%",
         padding: `${imagePadding.top}px ${imagePadding.right}px ${imagePadding.bottom}px ${imagePadding.left}px`,
+        textShadow: fontDropShadow ? "0px 0px 5px black" : "none",
       }}
     >
       <img
