@@ -34,6 +34,38 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full w-full">
+      <head>
+        <title>NoteCrafter</title>
+        <meta name="title" content="NoteCrafter" />
+        <meta
+          name="description"
+          content="A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else."
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.notecrafter.app/" />
+        <meta property="og:title" content="NoteCrafter" />
+        <meta
+          property="og:description"
+          content="A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else."
+        />
+        <meta
+          property="og:image"
+          content="https://notecrafter.app/images/nclogo.png"
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://www.notecrafter.app/" />
+        <meta property="twitter:title" content="NoteCrafter" />
+        <meta
+          property="twitter:description"
+          content="A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else."
+        />
+        <meta
+          property="twitter:image"
+          content="https://notecrafter.app/images/nclogo.png"
+        />
+      </head>
       <body className={`w-full h-full ${inter.className}`}>
         {children}
         <Analytics />
