@@ -22,6 +22,7 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://notecrafter.app/"),
   title: "NoteCrafter",
   description:
     "A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else.",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
       "A web-app that allows you to create layered imaged handouts, with custom fonts and overlays, for your TTRPG sessions, or anything else.",
     images: [
       {
-        url: "https://notecrafter.app/images/nclogo.png",
+        url: "https://notecrafter.app/images/nclogo.jpg",
         width: 512,
         height: 512,
         alt: "NoteCrafter Logo",
