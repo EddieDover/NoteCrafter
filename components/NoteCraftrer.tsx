@@ -778,8 +778,8 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
             <div className="flex flex-wrap w-[400px] prose">
               <p>
                 The library I&apos;m using to capture images from HTML
-                isn&apos;t exactly well maintained, so custom fonts don&apos;t
-                work.
+                doesn&apos;t support custom fonts that aren&apos;t loaded as
+                part of the page itself, so custom fonts don&apos;t work.
               </p>
               As it stands, until things are fixed, you have two options:
               <ol>
