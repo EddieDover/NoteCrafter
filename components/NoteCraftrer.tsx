@@ -23,7 +23,7 @@ import { PAPER_LIST } from "@/data/papers";
 import download from "downloadjs";
 import * as htmlToImage from "html-to-image";
 import NextImage from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   BiBug,
   BiDownload,
@@ -45,11 +45,11 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   const [noteText, setNoteText] = useState(PLACEHOLDER_TEXT);
   const [backgroundImage, setBackgroundImage] = useState(PAPER_LIST[0].file);
   const [customBackgroundImage, setCustomBackgroundImage] = useState<File>();
-  const [fontFamily, setFontFamily] = useState("Verdana");
+  const [fontFamily, setFontFamily] = useState(FONT_LIST[0].name);
   const [fontColor, setFontColor] = useState("#000000");
   const [fontDropShadow, setFontDropShadow] = useState(false);
   const [fontOpacity, setFontOpacity] = useState("1");
-  const [fontSize, setFontSize] = useState("16px");
+  const [fontSize, setFontSize] = useState("26px");
   const [backgroundImageWidth, setBackgroundImageWidth] = useState(
     PAPER_LIST[0].size?.x ?? "auto"
   );
@@ -80,6 +80,11 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   const [overlaysRotation, setOverlaysRotation] = useState<number[]>([0]);
   const [overlaysZIndex, setOverlaysZIndex] = useState<number[]>([0]);
   const [overlaysImage, setOverlaysImage] = useState<File[]>([]);
+
+  useEffect(() => {
+    setFontFamily(FONT_LIST[3].name);
+    setFontAttribution(FONT_LIST[3].source);
+  }, []);
 
   const formSetNoteText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNoteText(event.target.value);
@@ -462,6 +467,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               id="font_select"
               label="Font: "
               onChange={formSetFont}
+              value={fontFamily}
               style={{ fontFamily: fontFamily }}
               type="select"
               classNameOverride="select select-primary w-full max-w-xs"
@@ -536,6 +542,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               type="select"
               classNameOverride="select select-primary w-full max-w-xs"
               onChange={formSetFontSize}
+              value={fontSize}
             >
               {Array.from({ length: MAX_FONT_SIZE - 16 + 1 }, (_, i) => {
                 if ((16 + i) % 2 === 0)
