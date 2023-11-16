@@ -2,9 +2,11 @@
 
 Design custom notes for your TTRPG campaign (or whatever else you might need them for).
 
+Check it out in action at https://www.notecrafter.app
+
 # F.A.Q
 
-## Q: **My Custom Font isn't showing up**
+## Q: **Why isn't my custom font showing up when I download the image?**
 
 ## A: Sadly, the html-to-image library I'm using doesn't work with fonts that aren't part of the actual page, so you have two options:
 
