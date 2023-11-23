@@ -28,6 +28,7 @@ export const Changelog = () => {
   return (
     <>
       <button
+        title="View Changelog"
         onClick={() => {
           const dialog: HTMLDialogElement | null = document?.getElementById(
             "changelog_modal"

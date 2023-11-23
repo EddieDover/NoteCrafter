@@ -28,6 +28,7 @@ export const Info = () => {
   return (
     <>
       <button
+        title="View Info"
         onClick={() => {
           const dialog: HTMLDialogElement | null = document?.getElementById(
             "info_modal"
