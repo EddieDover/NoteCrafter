@@ -8,8 +8,6 @@ Check it out in action at https://www.notecrafter.app
 
 Feel free to file a Bug Report / Feature Request under the Issues tab of Github.
 
-Or you can join my **Discord** server here: https://discord.gg/XuGx7zNMKZ
-
 # F.A.Q
 
 ## Q: **Why isn't my custom font showing up when I download the image?**

@@ -1,9 +1,3 @@
-#### 1.0.3 (2023-11-23)
-
-##### New Features
-
-- Added discord button ([50421e03](https://github.com/eddiedover/notecrafter/commit/50421e034ee8c87a137d5c465db2046341a018da))
-
 #### 1.0.2 (2023-11-02)
 
 ##### New Features
