@@ -1,3 +1,9 @@
+#### 1.0.3 (2024-06-25)
+
+- Updated dependencies
+- Added Discord link to main bar.
+- Added Sponsorship links to Info modal.
+
 #### 1.0.2 (2023-11-02)
 
 ##### New Features

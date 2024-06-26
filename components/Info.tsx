@@ -56,6 +56,13 @@ export const Info = () => {
               Click the ? mark next to the Custom Font label for options.
             </p>
             <h2>I like this, can I donate/tip?</h2>
+            <p>
+              Sure! If you&apos;re a GitHub user, feel free to{" "}
+              <a href="https://github.com/sponsors/EddieDover">sponsor me</a>,
+              and if you&apos;re not I have a{" "}
+              <a href="https://www.patreon.com/doverscode">Patreon</a> and a{" "}
+              <a href="https://ko-fi.com/U7U5QNR59">Ko-fi</a>
+            </p>
             <p className="text-2xl">
               <a href="https://ko-fi.com/U7U5QNR59" target="_blank">
                 <img
