@@ -27,6 +27,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   BiBug,
   BiDownload,
+  BiLogoDiscord,
   BiLogoGithub,
   BiPlus,
   BiQuestionMark,
@@ -341,6 +342,14 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               title="Report a Bug"
             >
               <BiBug />
+            </a>
+            <a
+              href="https://discord.gg/SxzkH9prCE"
+              rel="noreferrer noopener"
+              target="_blank"
+              title="Discord Server"
+            >
+              <BiLogoDiscord />
             </a>
             <Changelog />
           </span>
