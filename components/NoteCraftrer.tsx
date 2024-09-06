@@ -489,6 +489,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
                     key={font.name}
                     style={{ fontFamily: font.name }}
                     value={font.name}
+                    title={font.name}
                   >
                     {font.name}
                   </option>
