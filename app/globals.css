@@ -26,3 +26,18 @@
   font-family: "Amelies Zettelwirtschaft";
   src: url("../public/fonts/Amelies.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Biloxi Script";
+  src: url("../public/fonts/Biloxi-Script.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Le Grand Saut";
+  src: url("../public/fonts/le_Grand_Saut.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "California Harvest";
+  src: url("../public/fonts/CaliforniaHarvest.ttf") format("truetype");
+}

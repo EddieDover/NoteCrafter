@@ -25,6 +25,10 @@ export const FONT_LIST = [
     source: "https://www.fontspace.com/alex-brush-font-f13047",
   },
   {
+    name: "Biloxi Script",
+    source: "https://www.dafont.com/biloxi-script.font",
+  },
+  {
     name: "Salonica",
     source: "https://www.fontspace.com/salonica-font-f56047",
   },
@@ -39,5 +43,13 @@ export const FONT_LIST = [
   {
     name: "Amelies Zettelwirtschaft",
     source: "https://www.dafont.com/amelies-zettelwirtschaft-ah.font",
+  },
+  {
+    name: "Le Grand Saut",
+    source: "https://www.dafont.com/jellyka-le-grand-saut-textual.font",
+  },
+  {
+    name: "California Harvest",
+    source: "https://www.dafont.com/californiaharvest.font",
   },
 ];
