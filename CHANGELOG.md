@@ -1,3 +1,10 @@
+#### 1.0.3 (2024-09-05)
+
+- Added tooltips to font list.
+- Added Biloxi Script (by Request) ([c77fa75](https://github.com/EddieDover/NoteCrafter/pull/11/commits/c77fa750d532cf52141f6902daefa158fe627275))
+- Added Le Grand Saut (by Request) ([af1640e](https://github.com/EddieDover/NoteCrafter/pull/11/commits/af1640e7b7d82d8c74bc8837a51a6f82d2dddc81))
+- Added California Harvest (by Request) ([afeb5bc](https://github.com/EddieDover/NoteCrafter/pull/11/commits/afeb5bc4d3f76f540577ee36c0f33c950bd8db53))
+
 #### 1.0.3 (2024-06-25)
 
 - Updated dependencies
@@ -17,9 +24,9 @@
 
 ##### New Fonts
 
-- Added Sage Sans \([`dd4a7995dc`](https://github.com/eddiedover/notecrafter/commit/dd4a7995dc))
-- Added Amelies Zettelwirtschaft \([`68d760ab69`](https://github.com/eddiedover/notecrafter/commit/68d760ab69))
-- Added Lemon Tuesday \([`a7a3b4964b`](https://github.com/eddiedover/notecrafter/commit/a7a3b4964b))
+- Added Sage Sans ([dd4a7995dc](https://github.com/eddiedover/notecrafter/commit/dd4a7995dc))
+- Added Amelies Zettelwirtschaft ([68d760ab69](https://github.com/eddiedover/notecrafter/commit/68d760ab69))
+- Added Lemon Tuesday ([a7a3b4964b](https://github.com/eddiedover/notecrafter/commit/a7a3b4964b))
 
 #### 1.0.0 (2023-10-30)
 
