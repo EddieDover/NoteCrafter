@@ -15,28 +15,13 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const sharp = require("sharp");
+import sharp from "sharp";
 
-async function convertImageToWebp(
-  image: Buffer,
-  transparentColor?: [number, number, number, number]
-) {
-  if (transparentColor) {
-    const webPData = await sharp(image)
-      .flatten({ background: transparentColor, alpha: 0 })
-      .removeAlpha(transparentColor)
-      .webp()
-      .toBuffer();
-    return webPData;
-  } else {
-    const webPData = await sharp(image)
-      .webp({ background: "transparent" })
-      .toBuffer();
-    return webPData;
-  }
+async function convertImageToWebp(image: Buffer) {
+  return sharp(image).webp().toBuffer();
 }
 
-export async function POST(request: Request, response: Response) {
+export async function POST(request: Request) {
   const data = await request.json();
   if (!data) return;
   const cleanstringvalue = data.replace(/^data:image\/\w+;base64,/, "");

@@ -20,7 +20,7 @@ import { BiQuestionMark } from "react-icons/bi";
 export const Info = () => {
   const closeModal = () => {
     const dialog: HTMLDialogElement | null = document?.getElementById(
-      "info_modal"
+      "info_modal",
     ) as HTMLDialogElement | null;
     dialog?.close();
   };
@@ -29,9 +29,10 @@ export const Info = () => {
     <>
       <button
         title="View Info"
+        className="cursor-pointer"
         onClick={() => {
           const dialog: HTMLDialogElement | null = document?.getElementById(
-            "info_modal"
+            "info_modal",
           ) as HTMLDialogElement | null;
           dialog?.showModal();
         }}
@@ -60,7 +61,6 @@ export const Info = () => {
               Sure! If you&apos;re a GitHub user, feel free to{" "}
               <a href="https://github.com/sponsors/EddieDover">sponsor me</a>,
               and if you&apos;re not I have a{" "}
-              <a href="https://www.patreon.com/doverscode">Patreon</a> and a{" "}
               <a href="https://ko-fi.com/U7U5QNR59">Ko-fi</a>
             </p>
             <p className="text-2xl">

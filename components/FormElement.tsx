@@ -132,7 +132,7 @@ export const FormElement = (props: FormElementProps) => {
           />
           <button
             type="button"
-            className="w-[50px] mx-1 text-white transition duration-500 ease-in-out transform bg-red-600 rounded-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            className="w-[50px] mx-1 text-white transition duration-500 ease-in-out transform bg-red-600 rounded-xl hover:bg-red-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             onClick={() => {
               const input = document.getElementById(id) as HTMLInputElement;
               input.value = "";
