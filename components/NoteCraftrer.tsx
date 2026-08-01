@@ -23,7 +23,7 @@ import { PAPER_LIST } from "@/data/papers";
 import download from "downloadjs";
 import * as htmlToImage from "html-to-image";
 import NextImage from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   BiBug,
   BiDownload,
@@ -42,20 +42,22 @@ interface NoteCrafterProps {}
 const PLACEHOLDER_TEXT =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
+const DEFAULT_FONT = 1;
+
 export const NoteCrafter = (props: NoteCrafterProps) => {
   const [noteText, setNoteText] = useState(PLACEHOLDER_TEXT);
   const [backgroundImage, setBackgroundImage] = useState(PAPER_LIST[0].file);
   const [customBackgroundImage, setCustomBackgroundImage] = useState<File>();
-  const [fontFamily, setFontFamily] = useState(FONT_LIST[0].name);
+  const [fontFamily, setFontFamily] = useState(FONT_LIST[DEFAULT_FONT].name);
   const [fontColor, setFontColor] = useState("#000000");
   const [fontDropShadow, setFontDropShadow] = useState(false);
   const [fontOpacity, setFontOpacity] = useState("1");
   const [fontSize, setFontSize] = useState("26px");
   const [backgroundImageWidth, setBackgroundImageWidth] = useState(
-    PAPER_LIST[0].size?.x ?? "auto"
+    PAPER_LIST[0].size?.x ?? "auto",
   );
   const [backgroundImageHeight, setBackgroundImageHeight] = useState(
-    PAPER_LIST[0].size?.y ?? "auto"
+    PAPER_LIST[0].size?.y ?? "auto",
   );
   const [imagePadding, setImagePadding] = useState({
     left: PAPER_LIST[0].defaults?.left ?? 0,
@@ -64,9 +66,11 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
     bottom: PAPER_LIST[0].defaults?.bottom ?? 0,
   });
   const [backgroundAttribution, setBackgroundAttribution] = useState(
-    PAPER_LIST[0].source
+    PAPER_LIST[0].source,
   );
-  const [fontAttribution, setFontAttribution] = useState(FONT_LIST[0].source);
+  const [fontAttribution, setFontAttribution] = useState(
+    FONT_LIST[DEFAULT_FONT].source,
+  );
   const [marginsVisible, setMarginsVisible] = useState(true);
   const [outputFormat, setOutputFormat] = useState<
     "webp" | "png" | "svg" | "jpeg"
@@ -82,11 +86,6 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   const [overlaysZIndex, setOverlaysZIndex] = useState<number[]>([0]);
   const [overlaysImage, setOverlaysImage] = useState<File[]>([]);
 
-  useEffect(() => {
-    setFontFamily(FONT_LIST[3].name);
-    setFontAttribution(FONT_LIST[3].source);
-  }, []);
-
   const formSetNoteText = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNoteText(event.target.value);
   };
@@ -94,7 +93,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   const formSetFont = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setFontFamily(event.target.value);
     const fontSource = FONT_LIST.find(
-      (font) => font.name === event.target.value
+      (font) => font.name === event.target.value,
     )?.source;
     if (fontSource) {
       setFontAttribution(`${fontSource}`);
@@ -108,7 +107,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   };
 
   const formSetFontDropShadow = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setFontDropShadow(event.target.checked);
   };
@@ -122,10 +121,10 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   };
 
   const formSetBackgroundImage = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const backgroundImageData = PAPER_LIST.find(
-      (paper) => paper.file === event.target.value
+      (paper) => paper.file === event.target.value,
     );
 
     if (!backgroundImageData) return;
@@ -137,7 +136,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
 
     if (backgroundImageData.source) {
       setBackgroundAttribution(
-        `Background image from ${backgroundImageData.source}`
+        `Background image from ${backgroundImageData.source}`,
       );
     } else {
       setBackgroundAttribution("");
@@ -209,7 +208,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
       const fontdatastring = e.target?.result as string;
       const fontdata = fontdatastring.split("base64,")[1].split(",")[0];
       const fontbuffer = Buffer.from(fontdata, "base64");
-      const font = new FontFace("custom", fontbuffer);
+      const font = new FontFace("custom", fontbuffer as BufferSource);
 
       font.load().then((loadedFont) => {
         document.fonts.add(loadedFont);
@@ -221,11 +220,11 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   };
 
   const clearCustomFont = () => {
-    setFontFamily(FONT_LIST[0].name);
-    setFontAttribution(FONT_LIST[0].source);
+    setFontFamily(FONT_LIST[DEFAULT_FONT].name);
+    setFontAttribution(FONT_LIST[DEFAULT_FONT].source);
 
     const selectedFont = document.getElementById(
-      "custom_font_select"
+      "custom_font_select",
     ) as HTMLInputElement;
     selectedFont.value = "";
   };
@@ -251,7 +250,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
   const clearCustomImage = () => {
     setCustomBackgroundImage(undefined);
     const selectedBackgroundImage = document.getElementById(
-      "background_image"
+      "background_image",
     ) as HTMLSelectElement;
     selectedBackgroundImage.value = PAPER_LIST[0].file;
     setBackgroundImage(PAPER_LIST[0].file);
@@ -267,20 +266,20 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
 
   const closeWarningModal = (event: any) => {
     const dialog: HTMLDialogElement | null = document?.getElementById(
-      "cfw_modal"
+      "cfw_modal",
     ) as HTMLDialogElement | null;
     dialog?.close();
   };
 
   const changeTab = (tab: number) => (event: any) => {
     event.preventDefault();
-    const tabs = document.getElementsByClassName("tab");
-    for (let i = 0; i < tabs.length; i++) {
-      tabs[i].classList.remove("tab-active");
-    }
-    tabs[tab].classList.add("tab-active");
     setSelectedTab(tab);
   };
+
+  const tabClassName = (tab: number) =>
+    `tab ${
+      selectedTab === tab ? "tab-active bg-primary text-primary-content" : ""
+    }`;
 
   const addOverlay = () => {
     setOverlayAmount(overlayAmount + 1);
@@ -355,21 +354,32 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
           </span>
         </div>
         <div className="divider my-0"></div>
-        <div className="tabs tabs-boxed">
+        <div role="tablist" className="tabs tabs-box">
           <a
-            className="tab tab-lifted tab-active"
+            role="tab"
+            aria-selected={selectedTab === 0}
+            className={tabClassName(0)}
             href="#tab1"
             onClick={changeTab(0)}
           >
             Layout
           </a>
-          <a className="tab tab-lifted" href="#tab2" onClick={changeTab(1)}>
+          <a
+            role="tab"
+            aria-selected={selectedTab === 1}
+            className={tabClassName(1)}
+            href="#tab2"
+            onClick={changeTab(1)}
+          >
             Overlays
           </a>
         </div>
         {selectedTab === 1 ? (
           <div className="flex flex-col flex-nowrap">
-            <button className="btn btn-primary" onClick={() => addOverlay()}>
+            <button
+              className="mx-2 mt-1 btn btn-primary"
+              onClick={() => addOverlay()}
+            >
               <span className="text-2xl">
                 <BiPlus />
               </span>
@@ -385,7 +395,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
                   <FormElement
                     id={`overlay_img_${i + 1}`}
                     type="upload"
-                    classNameOverride="max-h-[30px] file-input file-input-bordered file-input-primary w-full max-w-xs"
+                    classNameOverride="max-h-[30px] file-input file-input-primary w-full max-w-xs"
                     label={`Overlay ${i + 1} Image: `}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                       setOverlaysImage((prev) => {
@@ -453,7 +463,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
                   <FormElement
                     id={`overlay_zindex_${i + 1}`}
                     label={`Overlay ${i + 1} Z-Index:`}
-                    classNameOverride="input input-bordered w-full max-w-xs"
+                    classNameOverride="input w-full max-w-xs"
                     type="number"
                     min="0"
                     max="100"
@@ -505,7 +515,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
                     event.preventDefault();
                     const dialog: HTMLDialogElement | null =
                       document?.getElementById(
-                        "cfw_modal"
+                        "cfw_modal",
                       ) as HTMLDialogElement | null;
                     dialog?.showModal();
                   }}
@@ -515,7 +525,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               }
               type="upload"
               onChange={setCustomFont}
-              classNameOverride="file-input file-input-bordered file-input-primary w-full max-w-xs"
+              classNameOverride="file-input file-input-primary w-full max-w-xs"
               onClear={() => {
                 clearCustomFont();
               }}
@@ -586,7 +596,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
               id="custom_background_image"
               label="Custom Background Texture: "
               type="upload"
-              classNameOverride="file-input file-input-bordered file-input-primary w-full max-w-xs"
+              classNameOverride="file-input file-input-primary w-full max-w-xs"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setCustomImage(event.target.files?.[0]);
               }}
@@ -598,7 +608,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
             <FormElement
               id="text_area"
               label="Text: "
-              classNameOverride="input input-bordered input-primary w-full max-w-xs"
+              classNameOverride="input input-primary w-full max-w-xs"
               onChange={formSetNoteText}
               type="textarea"
             ></FormElement>
@@ -688,7 +698,7 @@ export const NoteCrafter = (props: NoteCrafterProps) => {
                 classNameOverride="select select-primary w-full max-w-xs"
                 onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                   setOutputFormat(
-                    event.target.value as "webp" | "png" | "svg" | "jpeg"
+                    event.target.value as "webp" | "png" | "svg" | "jpeg",
                   );
                 }}
               >

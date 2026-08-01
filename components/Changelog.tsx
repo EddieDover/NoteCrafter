@@ -20,7 +20,7 @@ import { BiNotepad } from "react-icons/bi";
 export const Changelog = () => {
   const closeModal = () => {
     const dialog: HTMLDialogElement | null = document?.getElementById(
-      "changelog_modal"
+      "changelog_modal",
     ) as HTMLDialogElement | null;
     dialog?.close();
   };
@@ -29,9 +29,10 @@ export const Changelog = () => {
     <>
       <button
         title="View Changelog"
+        className="cursor-pointer"
         onClick={() => {
           const dialog: HTMLDialogElement | null = document?.getElementById(
-            "changelog_modal"
+            "changelog_modal",
           ) as HTMLDialogElement | null;
           const changelogURL =
             "https://raw.githubusercontent.com/EddieDover/notecrafter/main/CHANGELOG.md";

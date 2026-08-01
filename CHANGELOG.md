@@ -1,3 +1,7 @@
+#### 1.1.0 (2026-08-01)
+
+- Lifted site dependencies to modern versions to ensure stability and longevity. :D
+
 #### 1.0.3 (2024-09-05)
 
 - Added tooltips to font list.
